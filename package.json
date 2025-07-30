@@ -25,10 +25,13 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "express-handlebars": "^8.0.3"
+    "express-handlebars": "^8.0.3",
+    "mongoose": "^8.17.0"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "kill-port": "^2.0.1",
+    "lint-staged": "^16.1.2",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
     "sass": "^1.89.2"
