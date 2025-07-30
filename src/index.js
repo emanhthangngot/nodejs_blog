@@ -1,44 +1,22 @@
 import express from "express";
-import morgan from "morgan";
-import { create } from "express-handlebars";
-
 const app = express();
 const port = 3000;
 
-app.use(express.static("src/public"));
+import route from "./routes/index.js";
 
-// HTTP logger
-app.use(morgan("combined"));
+// Middleware để xử lý dữ liệu từ form
+app.use(express.urlencoded({ extended: true }));
 
-// Template engine setup
-const hbs = create({
-  extname: ".hbs",
-  helpers: {
-    foo() {
-      return "FOO!";
-    },
-    bar() {
-      return "BAR!";
-    },
-  },
-});
-
-app.engine("hbs", hbs.engine);
+// Cấu hình view engine nếu cần
+import { engine } from "express-handlebars";
+app.engine("hbs", engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
-app.set("views", "src/resources/views");
+app.set("views", "./src/resources/views");
 
-// Route
-app.get("/", (req, res) => {
-  res.render("home", {
-    showTitle: true,
-  });
-});
+// home, search, contact
 
-app.get("/news", (req, res) => {
-  res.render("news", {
-    showTitle: true,
-  });
-});
+// route init
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}`);
