@@ -4,9 +4,8 @@ class SiteController {
     // [GET] /
     async index(req, res) {
         try {
-            const courses = await Course.find({});
-            res.json(courses);
-            // Or: res.render('home', { courses });
+            const courses = await Course.find({}).lean(); // trả về plain object, Handlebars sẽ truy cập được các thuộc tính như name, image, description mà không báo lỗi bảo mật
+            res.render('home', { courses });
         } catch (err) {
             res.status(400).json({ error: 'Error!!!' });
         }
